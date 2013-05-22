@@ -25,24 +25,109 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "cocos2d.h"
 #import "LineDrawer.h"
+
+#import "LinePoint.h"
 #import "CCNode+SFGestureRecognizers.h"
 
+@interface LineDrawer () 
+@property (nonatomic, assign) ccColor4F currentColor;
+@end
+
+@implementation LineDrawer {
+    CCRenderTexture *renderTexture;
+}
+
+- (id)initWithDrawingFrame:(CGRect)drawingFrame
+{
+    self = [super init];
+    if (self) {
+        
+        shaderProgram_ = [[CCShaderCache sharedShaderCache] programForKey:kCCShader_PositionColor];
+
+        
+        renderTexture = [[CCRenderTexture alloc] initWithWidth:(int)self.contentSize.width height:(int)self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderTexture.anchorPoint = ccp(0, 0);
+        //    renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
+        
+        CGSize drawingSize = drawingFrame.size;
+        renderTexture.position = ccp(drawingSize.width * 0.5f, drawingSize.height * 0.5f);
+
+        [renderTexture clear:1.0f g:1.0f b:1.0f a:0];
+        [self addChild:renderTexture];
+        
+        self.isTouchEnabled = YES;
+        ccColor4F color = {0, 0, 0, 1};
+        self.currentColor = color;
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+        panGestureRecognizer.maximumNumberOfTouches = 1;
+        [self addGestureRecognizer:panGestureRecognizer];
+
+    }
+    return self;
+    
+}
+
+- (void)draw
+{
+    [self.currentTool toolShouldDrawInTexture:renderTexture];
+}
+
+#pragma mark - Clear Screen
+- (void)clearScreen
+{
+    [renderTexture beginWithClear:1.0 g:1.0 b:1.0 a:0];
+    [renderTexture end];
+}
+
+#pragma mark - GestureRecognizers
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    CGPoint point = [panGestureRecognizer locationInView:panGestureRecognizer.view];
+    CGPoint velocity = [panGestureRecognizer velocityInView:panGestureRecognizer.view];
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self.currentTool touchBeganWithPoint:point velocity:velocity];
+    }
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        //! skip points that are too close
+        [self.currentTool touchMovedWithPoint:point velocity:velocity];
+    }
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        [self.currentTool touchEndedWithPoint:point velocity:velocity];
+    }
+}
+
+#pragma mark - ToolDelegate
+- (UIView*)viewForUseWithTool:(id<Tool>)t
+{
+    return nil;
+}
+- (ccColor4F)fillColor
+{
+    return self.currentColor;
+}
+
+- (CCGLProgram *)shaderProgram
+{
+    return shaderProgram_;
+}
+
+#pragma mark - Set Current Tool
+- (void)setCurrentTool:(id<Tool>)currentTool
+{
+    if (_currentTool != currentTool) {
+        _currentTool = currentTool;
+        _currentTool.delegate = self;
+    }
+}
+@end
+/*
 typedef struct _LineVertex {
   CGPoint pos;
   float z;
   ccColor4F color;
 } LineVertex;
-
-@interface LinePoint : NSObject
-@property(nonatomic, assign) CGPoint pos;
-@property(nonatomic, assign) float width;
-@end
-
-
-@implementation LinePoint
-@synthesize pos;
-@synthesize width;
-@end
 
 @interface LineDrawer ()
 
@@ -73,6 +158,40 @@ typedef struct _LineVertex {
   BOOL finishingLine;
 }
 
+- (id)initWithDrawingFrame:(CGRect)drawingFrame
+{
+    self = [super init];
+    if (self) {
+        points = [NSMutableArray array];
+        velocities = [NSMutableArray array];
+        circlesPoints = [NSMutableArray array];
+        
+        shaderProgram_ = [[CCShaderCache sharedShaderCache] programForKey:kCCShader_PositionColor];
+        overdraw = 3.0f;
+        
+        renderTexture = [[CCRenderTexture alloc] initWithWidth:(int)self.contentSize.width height:(int)self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        renderTexture.anchorPoint = ccp(0, 0);
+        //    renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
+
+        CGSize drawingSize = drawingFrame.size;
+        renderTexture.position = ccp(drawingSize.width * 0.5f, drawingSize.height * 0.5f);
+        NSLog(@"renderTexture position:%@, drawing size:%@",NSStringFromCGPoint(renderTexture.position), NSStringFromCGSize(drawingSize));
+        [renderTexture clear:1.0f g:1.0f b:1.0f a:0];
+        [self addChild:renderTexture];
+        
+        self.isTouchEnabled = YES;
+        
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+        panGestureRecognizer.maximumNumberOfTouches = 1;
+        [self addGestureRecognizer:panGestureRecognizer];
+        
+        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        [self addGestureRecognizer:longPressGestureRecognizer];
+    }
+    return self;
+
+}
+
 - (id)init
 {
   self = [super init];
@@ -86,7 +205,9 @@ typedef struct _LineVertex {
 
     renderTexture = [[CCRenderTexture alloc] initWithWidth:(int)self.contentSize.width height:(int)self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
     renderTexture.anchorPoint = ccp(0, 0);
-    renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
+//    renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    renderTexture.position = ccp(screenSize.width * 0.5f, screenSize.height * 0.5f);
     [renderTexture clear:1.0f g:1.0f b:1.0f a:0];
     [self addChild:renderTexture];
 
@@ -370,7 +491,9 @@ typedef struct _LineVertex {
 - (float)extractSize:(UIPanGestureRecognizer *)panGestureRecognizer
 {
   //! result of trial & error
+
   float vel = ccpLength([panGestureRecognizer velocityInView:panGestureRecognizer.view]);
+//    NSLog(@"vel:%f vel in view:%@",vel, NSStringFromCGPoint([panGestureRecognizer velocityInView:panGestureRecognizer.view]));
   float size = vel / 166.0f;
   size = clampf(size, 1, 40);
 
@@ -383,8 +506,9 @@ typedef struct _LineVertex {
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-  const CGPoint point = [[CCDirector sharedDirector] convertToGL:[panGestureRecognizer locationInView:panGestureRecognizer.view]];
 
+  const CGPoint point = [[CCDirector sharedDirector] convertToGL:[panGestureRecognizer locationInView:panGestureRecognizer.view]];
+//    NSLog(@"GLPoint:%@, panGestureRecognizer view:%@, origin point:%@",NSStringFromCGPoint(point),panGestureRecognizer.view.class, NSStringFromCGPoint([panGestureRecognizer locationInView:panGestureRecognizer.view]));
   if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
     [points removeAllObjects];
     [velocities removeAllObjects];
@@ -423,3 +547,4 @@ typedef struct _LineVertex {
   [renderTexture end];
 }
 @end
+*/

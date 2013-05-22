@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		183988CF174C7A90009717E1 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183988CE174C7A90009717E1 /* RootViewController.m */; };
+		183988D3174CA823009717E1 /* VariableWidthPen.m in Sources */ = {isa = PBXBuildFile; fileRef = 183988D2174CA822009717E1 /* VariableWidthPen.m */; };
+		183988D9174CAD16009717E1 /* LinePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 183988D8174CAD16009717E1 /* LinePoint.m */; };
 		FB485E99154A9A4F00011C36 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FB485DAE154A9A4F00011C36 /* CCAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FB485E9A154A9A4F00011C36 /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = FB485DB0154A9A4F00011C36 /* CCActionCamera.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FB485E9B154A9A4F00011C36 /* CCActionCatmullRom.m in Sources */ = {isa = PBXBuildFile; fileRef = FB485DB2154A9A4F00011C36 /* CCActionCatmullRom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -134,6 +137,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		183988CD174C7A90009717E1 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		183988CE174C7A90009717E1 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		183988D0174CA4ED009717E1 /* Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
+		183988D1174CA822009717E1 /* VariableWidthPen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableWidthPen.h; sourceTree = "<group>"; };
+		183988D2174CA822009717E1 /* VariableWidthPen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariableWidthPen.m; sourceTree = "<group>"; };
+		183988D6174CAB8C009717E1 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		183988D7174CAD16009717E1 /* LinePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePoint.h; sourceTree = "<group>"; };
+		183988D8174CAD16009717E1 /* LinePoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinePoint.m; sourceTree = "<group>"; };
 		FB485DAD154A9A4F00011C36 /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		FB485DAE154A9A4F00011C36 /* CCAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAction.m; sourceTree = "<group>"; };
 		FB485DAF154A9A4F00011C36 /* CCActionCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionCamera.h; sourceTree = "<group>"; };
@@ -414,6 +425,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		183988D4174CA82C009717E1 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				183988D0174CA4ED009717E1 /* Tool.h */,
+				183988D1174CA822009717E1 /* VariableWidthPen.h */,
+				183988D2174CA822009717E1 /* VariableWidthPen.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
+		183988D5174CAB82009717E1 /* Utensil */ = {
+			isa = PBXGroup;
+			children = (
+				183988D6174CAB8C009717E1 /* SynthesizeSingleton.h */,
+			);
+			name = Utensil;
+			sourceTree = "<group>";
+		};
 		FB485DAC154A9A4F00011C36 /* cocos2d */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,10 +800,16 @@
 		FBD0E93F15457AF400FBE81E /* Smooth Drawing */ = {
 			isa = PBXGroup;
 			children = (
+				183988D5174CAB82009717E1 /* Utensil */,
+				183988D4174CA82C009717E1 /* Tool */,
 				FBF3F67415457B89001E6DCB /* LineDrawer.h */,
 				FBF3F67515457B89001E6DCB /* LineDrawer.m */,
+				183988D7174CAD16009717E1 /* LinePoint.h */,
+				183988D8174CAD16009717E1 /* LinePoint.m */,
 				FBD0EAAD15457AF800FBE81E /* AppDelegate.h */,
 				FBD0EAAE15457AF800FBE81E /* AppDelegate.m */,
+				183988CD174C7A90009717E1 /* RootViewController.h */,
+				183988CE174C7A90009717E1 /* RootViewController.m */,
 				FBD0E94015457AF500FBE81E /* Resources */,
 				FBD0E95815457AF500FBE81E /* libs */,
 				FBD0EAA915457AF800FBE81E /* Supporting Files */,
@@ -1009,6 +1044,9 @@
 				FB485EFA154A9A4F00011C36 /* vec2.c in Sources */,
 				FB485EFB154A9A4F00011C36 /* vec3.c in Sources */,
 				FB485EFC154A9A4F00011C36 /* vec4.c in Sources */,
+				183988CF174C7A90009717E1 /* RootViewController.m in Sources */,
+				183988D3174CA823009717E1 /* VariableWidthPen.m in Sources */,
+				183988D9174CAD16009717E1 /* LinePoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1073,6 +1111,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1094,6 +1133,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

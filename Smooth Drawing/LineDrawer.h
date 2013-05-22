@@ -25,6 +25,11 @@
 
 
 #import "cocos2d.h"
+#import "Tool.h"
 
-@interface LineDrawer : CCLayer
+@interface LineDrawer : CCLayer <ToolDelegate>
+
+@property (nonatomic, strong) id <Tool> currentTool;
+- (id)initWithDrawingFrame:(CGRect)drawingFrame;
+- (void)clearScreen;
 @end
