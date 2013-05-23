@@ -10,6 +10,7 @@
 		183988CF174C7A90009717E1 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183988CE174C7A90009717E1 /* RootViewController.m */; };
 		183988D3174CA823009717E1 /* VariableWidthPen.m in Sources */ = {isa = PBXBuildFile; fileRef = 183988D2174CA822009717E1 /* VariableWidthPen.m */; };
 		183988D9174CAD16009717E1 /* LinePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 183988D8174CAD16009717E1 /* LinePoint.m */; };
+		18EA6D31174DD2FC00750511 /* Pen.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA6D30174DD2FC00750511 /* Pen.m */; };
 		FB485E99154A9A4F00011C36 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FB485DAE154A9A4F00011C36 /* CCAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FB485E9A154A9A4F00011C36 /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = FB485DB0154A9A4F00011C36 /* CCActionCamera.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FB485E9B154A9A4F00011C36 /* CCActionCatmullRom.m in Sources */ = {isa = PBXBuildFile; fileRef = FB485DB2154A9A4F00011C36 /* CCActionCatmullRom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -145,6 +146,9 @@
 		183988D6174CAB8C009717E1 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		183988D7174CAD16009717E1 /* LinePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePoint.h; sourceTree = "<group>"; };
 		183988D8174CAD16009717E1 /* LinePoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinePoint.m; sourceTree = "<group>"; };
+		18EA6D2F174DD2FC00750511 /* Pen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pen.h; sourceTree = "<group>"; };
+		18EA6D30174DD2FC00750511 /* Pen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pen.m; sourceTree = "<group>"; };
+		18EA6D32174DE28B00750511 /* ToolHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolHeader.h; sourceTree = "<group>"; };
 		FB485DAD154A9A4F00011C36 /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		FB485DAE154A9A4F00011C36 /* CCAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAction.m; sourceTree = "<group>"; };
 		FB485DAF154A9A4F00011C36 /* CCActionCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionCamera.h; sourceTree = "<group>"; };
@@ -431,6 +435,9 @@
 				183988D0174CA4ED009717E1 /* Tool.h */,
 				183988D1174CA822009717E1 /* VariableWidthPen.h */,
 				183988D2174CA822009717E1 /* VariableWidthPen.m */,
+				18EA6D2F174DD2FC00750511 /* Pen.h */,
+				18EA6D30174DD2FC00750511 /* Pen.m */,
+				18EA6D32174DE28B00750511 /* ToolHeader.h */,
 			);
 			name = Tool;
 			sourceTree = "<group>";
@@ -895,7 +902,7 @@
 		FBD0E92015457AF400FBE81E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = FBD0E92315457AF400FBE81E /* Build configuration list for PBXProject "Smooth Drawing" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1047,6 +1054,7 @@
 				183988CF174C7A90009717E1 /* RootViewController.m in Sources */,
 				183988D3174CA823009717E1 /* VariableWidthPen.m in Sources */,
 				183988D9174CAD16009717E1 /* LinePoint.m in Sources */,
+				18EA6D31174DD2FC00750511 /* Pen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,6 +1065,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1067,6 +1079,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
@@ -1078,6 +1091,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1086,6 +1103,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;

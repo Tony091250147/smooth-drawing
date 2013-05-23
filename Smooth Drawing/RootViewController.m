@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "LineDrawer.h"
+#import "Pen.h"
 #import "VariableWidthPen.h"
 @interface RootViewController ()
 @property (nonatomic, strong) UIView *dashboard;
@@ -103,6 +104,7 @@
 - (void)oilPenButtonTouched:(id)sender
 {
     NSLog(@"oil Pen touched");
+    self.lineDrawer.currentTool = [Pen sharedPen];
 }
 
 - (void)variableWidthSmoothLineButtonTouched:(id)sender

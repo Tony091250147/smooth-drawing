@@ -357,7 +357,7 @@
 		for( NSObject *key in array ) {
 			NSObject *obj = [attributeDict objectForKey:key];
 			if( obj )
-				[dict setObject:obj forKey:key];
+				[dict setObject:obj forKey:(id<NSCopying>)key];
 		}
 		
 		// But X and Y since they need special treatment

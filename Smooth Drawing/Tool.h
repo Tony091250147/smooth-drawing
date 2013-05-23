@@ -30,6 +30,7 @@
 
 - (UIView*)viewForUseWithTool:(id<Tool>)t;
 - (ccColor4F)fillColor;
+- (CGFloat)lineWidth;
 - (CCGLProgram *)shaderProgram;
 
 @end

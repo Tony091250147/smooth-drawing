@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Tool.h"
-@interface VariableWidthPen : NSObject <Tool>
+#import "Pen.h"
+@interface VariableWidthPen : Pen
 
 + (VariableWidthPen*)sharedVariableWidthPen;
 

@@ -31,6 +31,7 @@
 
 @interface LineDrawer () 
 @property (nonatomic, assign) ccColor4F currentColor;
+@property (nonatomic, assign) CGFloat currentWidth;
 @end
 
 @implementation LineDrawer {
@@ -54,7 +55,7 @@
 
         [renderTexture clear:1.0f g:1.0f b:1.0f a:0];
         [self addChild:renderTexture];
-        
+        self.currentWidth = 5;
         self.isTouchEnabled = YES;
         ccColor4F color = {0, 0, 0, 1};
         self.currentColor = color;
@@ -113,6 +114,10 @@
     return shaderProgram_;
 }
 
+- (float)lineWidth
+{
+    return self.currentWidth;
+}
 #pragma mark - Set Current Tool
 - (void)setCurrentTool:(id<Tool>)currentTool
 {
